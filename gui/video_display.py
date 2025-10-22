@@ -97,6 +97,7 @@ class VideoPlayerWidget(QWidget):
 
             self.update_frame(idx, 0)
 
+    # The QTMultiMedia module seems to be unavailable so opencv is being used instead
     def update_frame(self, idx, frame_pos):
         cap = self.captures[idx]
         if cap is None:
@@ -118,16 +119,6 @@ class VideoPlayerWidget(QWidget):
         if self.captures[idx] is None:
             return
         self.update_frame(idx, frame_pos)
-
-    def next_frame(self, idx):
-        if self.captures[idx] is None:
-            return
-        current_pos = self.sliders[idx].value()
-        next_pos = current_pos + 1
-        max_pos = self.sliders[idx].maximum()
-        if next_pos > max_pos:
-            next_pos = 0  # Loop
-        self.update_frame(idx, next_pos)
 
     ### left right 1 frame ###
     def go_previous_frame(self, idx):

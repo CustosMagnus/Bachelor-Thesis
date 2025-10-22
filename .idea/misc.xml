@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Black">
+    <option name="sdkName" value="opensim_scripting" />
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="opensim_scripting" project-jdk-type="Python SDK" />
+</project>
