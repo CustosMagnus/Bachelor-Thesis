@@ -13,11 +13,16 @@ class VideoPlayerWidget(QWidget):
         self.frame_count = 0
         self.current_frame = 0
 
+        self.btn_prev = []
+        self.btn_next = []
+        self.file_paths = []
+
         layout = QVBoxLayout(self)
 
         self.top_label = QLabel("""1) Upload up to 4 videos below.
         2) Search for the synchronisation point of the videos.
-        3) Confirm your synchronisation points.""")
+        3) Confirm your synchronisation points.
+        4) Crop the videos to reduce computation time""")
         self.top_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(self.top_label)
 
@@ -65,12 +70,17 @@ class VideoPlayerWidget(QWidget):
 
             cell_layout.addLayout(btn_layout)
 
+            # keep references for external enabling/disabling
+            self.btn_prev.append(btn_prev)
+            self.btn_next.append(btn_next)
+
             btn_prev.clicked.connect(lambda checked, idx=i: self.go_previous_frame(idx))
             btn_next.clicked.connect(lambda checked, idx=i: self.go_next_frame(idx))
             ### /left right 1 frame ###
 
             # variable for the video
             self.captures.append(None)
+            self.file_paths.append(None)
 
             btn.clicked.connect(lambda checked, idx=i: self.load_video(idx))
             slider.sliderMoved.connect(lambda pos, idx=i: self.seek_frame(idx, pos))
@@ -88,6 +98,7 @@ class VideoPlayerWidget(QWidget):
                 return
 
             self.captures[idx] = cap
+            self.file_paths[idx] = file_path
             self.sliders[idx].setEnabled(True)
 
             # Frame count

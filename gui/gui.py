@@ -1,9 +1,10 @@
-from gui.video_display import *
-
 from PyQt6.QtWidgets import (
     QWidget, QTabWidget,
     QVBoxLayout, QLabel
 )
+
+from video_processing.video_processor import Video_PreProcessor
+from gui.video_display import VideoPlayerWidget
 
 class main_window(QWidget):
     def __init__(self):
@@ -27,11 +28,12 @@ class main_window(QWidget):
         tab = QWidget()
         layout = QVBoxLayout(tab)
 
-        # Create instance of the OpenCV video player widget
+        # Creating video player using opencv
         video_player = VideoPlayerWidget()
-
-        # Add the video player widget to the layout
         layout.addWidget(video_player)
+        # Creating cropping abilities
+        video_cropper = Video_PreProcessor(video_player)
+        layout.addWidget(video_cropper)
 
         tab.setLayout(layout)
         return tab
