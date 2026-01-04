@@ -1,10 +1,11 @@
-from PyQt6.QtWidgets import (
+from PySide6.QtWidgets import (
     QWidget, QTabWidget,
     QVBoxLayout, QLabel
 )
 
-from video_processing.video_processor import Video_PreProcessor
 from gui.video_display import VideoPlayerWidget
+from video_processing.video_processor import Video_PreProcessor
+
 
 class main_window(QWidget):
     def __init__(self):

@@ -1,9 +1,10 @@
 import cv2
-from PyQt6.QtWidgets import (
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QImage, QPixmap
+from PySide6.QtWidgets import (
     QWidget, QPushButton, QLabel, QVBoxLayout, QGridLayout, QSlider, QFileDialog, QHBoxLayout
 )
-from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QImage, QPixmap
+
 
 class VideoPlayerWidget(QWidget):
     def __init__(self):
@@ -74,15 +75,15 @@ class VideoPlayerWidget(QWidget):
             self.btn_prev.append(btn_prev)
             self.btn_next.append(btn_next)
 
-            btn_prev.clicked.connect(lambda checked, idx=i: self.go_previous_frame(idx))
-            btn_next.clicked.connect(lambda checked, idx=i: self.go_next_frame(idx))
+            btn_prev.clicked.connect(lambda checked=False, idx=i: self.go_previous_frame(idx))
+            btn_next.clicked.connect(lambda checked=False, idx=i: self.go_next_frame(idx))
             ### /left right 1 frame ###
 
             # variable for the video
             self.captures.append(None)
             self.file_paths.append(None)
 
-            btn.clicked.connect(lambda checked, idx=i: self.load_video(idx))
+            btn.clicked.connect(lambda checked=False, idx=i: self.load_video(idx))
             slider.sliderMoved.connect(lambda pos, idx=i: self.seek_frame(idx, pos))
 
             self.grid_layout.addWidget(cell_widget, i // 2, i % 2)

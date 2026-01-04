@@ -1,6 +1,10 @@
-import sys, os
-from PyQt6.QtWidgets import QApplication
+import os
+import sys
+
+from PySide6.QtWidgets import QApplication
+
 from gui.gui import main_window
+
 
 def check_system():
     if not os.path.exists("./log"):

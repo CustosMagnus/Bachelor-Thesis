@@ -1,8 +1,10 @@
-import cv2, sys
+import sys
 from datetime import datetime
-from PyQt6.QtWidgets import QSlider, QVBoxLayout
-from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import (QHBoxLayout, QPushButton, QWidget, QLabel)
+
+import cv2
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import (QHBoxLayout, QPushButton, QWidget, QLabel)
+from PySide6.QtWidgets import QSlider, QVBoxLayout
 
 
 class Video_PreProcessor(QWidget):
