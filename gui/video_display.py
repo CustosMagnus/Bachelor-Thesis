@@ -45,7 +45,7 @@ class VideoPlayerWidget(QWidget):
             cell_layout.addWidget(btn)
 
             video_label = QLabel("No video loaded")
-            video_label.setFixedSize(320, 240)
+            video_label.setFixedSize(640, 480)
             video_label.setStyleSheet("background-color: black;")
             video_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
             cell_layout.addWidget(video_label)

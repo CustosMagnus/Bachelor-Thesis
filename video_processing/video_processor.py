@@ -5,6 +5,7 @@ import cv2
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (QHBoxLayout, QPushButton, QWidget, QLabel)
 from PySide6.QtWidgets import QSlider, QVBoxLayout
+from tqdm import tqdm
 
 
 class Video_PreProcessor(QWidget):
@@ -112,7 +113,7 @@ class Video_PreProcessor(QWidget):
         self.crop_o_slider.setMaximum(int(self.max_vid_val - 1))
         self.crop_o_slider.setValue(int(self.max_vid_val - 1))
         self.update_all_videos(int(self.max_vid_val - 1))
-        print(self.crop_a_slider.value())
+        print("cropping beginning of synced video at:", self.crop_a_slider.value())
 
 
     def crop_end_slider(self):
@@ -121,7 +122,7 @@ class Video_PreProcessor(QWidget):
     def crop_end_button(self):
         self.crop_o_slider.setEnabled(False)
         self.crop_o_button.setEnabled(False)
-        print(self.crop_o_slider.value())
+        print("cropping end of synced video at:", self.crop_o_slider.value())
         self.export_cropped_video()
 
     def update_all_videos(self, loc):
@@ -169,7 +170,7 @@ class Video_PreProcessor(QWidget):
                 # Read and write frames
                 cap.set(cv2.CAP_PROP_POS_FRAMES, start_frame)
                 frames_to_write = end_frame - start_frame + 1
-                for _ in range(frames_to_write):
+                for _ in tqdm(range(frames_to_write), desc=f"Rendering video {i}", unit="frame"):
                     ret, frame = cap.read()
                     if not ret:
                         break
