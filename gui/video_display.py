@@ -2,7 +2,7 @@ import cv2
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QImage, QPixmap
 from PySide6.QtWidgets import (
-    QWidget, QPushButton, QLabel, QVBoxLayout, QGridLayout, QSlider, QFileDialog, QHBoxLayout
+    QWidget, QPushButton, QLabel, QVBoxLayout, QGridLayout, QSlider, QFileDialog, QHBoxLayout, QSizePolicy
 )
 
 
@@ -45,7 +45,12 @@ class VideoPlayerWidget(QWidget):
             cell_layout.addWidget(btn)
 
             video_label = QLabel("No video loaded")
-            video_label.setFixedSize(640, 480)
+            # video_label.setFixedSize(640, 480)
+            video_label.setMinimumSize(100, 100)
+            video_label.setSizePolicy(
+                QSizePolicy.Policy.Expanding,
+                QSizePolicy.Policy.Expanding
+            )
             video_label.setStyleSheet("background-color: black;")
             video_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
             cell_layout.addWidget(video_label)
@@ -149,3 +154,9 @@ class VideoPlayerWidget(QWidget):
             pos += 1
             self.update_frame(idx, pos)
     ### /left right 1 frame ###
+
+    def resizeEvent(self, event):
+        super().resizeEvent(event)
+        for i in range(4):
+            if self.captures[i] is not None:
+                self.update_frame(i, self.sliders[i].value())
