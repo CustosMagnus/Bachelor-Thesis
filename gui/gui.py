@@ -11,7 +11,7 @@ class main_window(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Analyzer")
-        self.resize(1280, 720)
+        self.setGeometry(300, 300, 400, 200)
 
         # Main layout
         layout = QVBoxLayout()
