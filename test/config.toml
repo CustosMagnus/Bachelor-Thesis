@@ -1,0 +1,36 @@
+project = "test"
+nesting = 1
+video_extension = "MP4"
+
+[pipeline]
+videos_raw = "videos-raw"
+calibration_videos = "calibration"
+
+[calibration]
+# checkerboard / charuco / aruco
+board_type = "charuco"
+
+# width and height of grid
+board_size = [6, 6]
+
+# number of bits in the markers, if aruco/charuco
+board_marker_bits = 4
+
+# number of markers in dictionary, if aruco/charuco
+board_marker_dict_number = 50
+
+# length of marker side
+board_marker_length = 25.25 # mm
+
+# If aruco, length of marker separation
+# board_marker_separation_length = 1 # mm
+
+# If charuco or checkerboard, square side length
+board_square_side_length = 33.5 # mm
+
+[triangulation]
+cam_regex = 'vid([0-9])'
+
+[manual_verification]
+# true / false
+manually_verify = false
