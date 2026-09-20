@@ -64,6 +64,10 @@ class Video_PreProcessor(QWidget):
         for i in range(len(vid_loc)):
             if vid_loc[i] is not None:
                 sort[i] = self.Video_Player.sliders[i].value()
+        if not any(value is not None for value in sort):
+            return
+
+        self.sync_location.clear()
         # sync to smallest position and set sliders and video accordingly
         min_val = min(filter(lambda x: x is not None, sort))
         for i in range(len(sort)):
@@ -144,7 +148,7 @@ class Video_PreProcessor(QWidget):
             start_frame = int(self.sync_location[i] + start_loc)
             end_frame = int(self.sync_location[i] + end_loc)
 
-            if not (start_frame <= end_frame < total_frames - 1):
+            if not (start_frame <= end_frame < total_frames):
                 self.log(f"Invalid crop range for video {i}: [{start_frame}, {end_frame}]")
 
             # Gather writer properties
@@ -165,6 +169,7 @@ class Video_PreProcessor(QWidget):
 
             # Save current UI position to restore later
             current_ui_pos = self.Video_Player.sliders[i].value()
+            self.Video_Player.invalidate_frame_state(i)
 
             try:
                 # Read and write frames
@@ -183,8 +188,7 @@ class Video_PreProcessor(QWidget):
             finally:
                 writer.release()
                 # Restore UI frame display position
-                restore_frame = int(self.sync_location[i] + current_ui_pos)
-                self.Video_Player.update_frame(i, restore_frame)
+                self.Video_Player.update_frame(i, current_ui_pos)
 
     def log(self, txt):
         with open("./log/error.log", "a") as f:

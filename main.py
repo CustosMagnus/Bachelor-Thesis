@@ -7,14 +7,17 @@ from gui.gui import main_window
 
 
 def check_system():
-    if not os.path.exists("./log"):
-        os.mkdir("./log")
-    if not os.path.exists("./temp"):
-        os.mkdir("./temp")
+    os.makedirs("./log", exist_ok=True)
+    os.makedirs("./temp", exist_ok=True)
 
-if __name__ == "__main__":
+
+def main():
     check_system()
     app = QApplication(sys.argv)
     window = main_window()
     window.show()
-    sys.exit(app.exec())
+    return app.exec()
+
+
+if __name__ == "__main__":
+    sys.exit(main())
